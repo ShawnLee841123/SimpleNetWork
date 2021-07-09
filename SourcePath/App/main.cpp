@@ -1,7 +1,7 @@
 ﻿
 #include <stdio.h>
 #include "WinConsole.h"
-#include "../CoreLib/ThreadCore/Include/AutoLock.h"
+#include "AutoLock.h"
 
 WinConsole* g_pWinConsole = nullptr;
 

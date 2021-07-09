@@ -1,5 +1,5 @@
 ﻿#include "WinConsole.h"
-#include "../CoreLib/ThreadCore/Include/MultyThreadManager.h"
+#include "MultyThreadManager.h"
 
 
 WinConsole::WinConsole(void* pHandle): m_bEnable(false), m_pConsoleHandle(pHandle)
