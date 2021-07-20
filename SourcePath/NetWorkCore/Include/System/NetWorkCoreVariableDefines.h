@@ -15,6 +15,8 @@
 
 #define IO_BUFF_SIZE 2014
 
+#define LISTEN_LINK_MAX 4096
+
 union Core_SockAddress
 {
 	unsigned char m_strAdd[4];
@@ -88,5 +90,7 @@ static inline bool operator==(Core_SockStoreKey const& lhv, Core_SockStoreKey co
 {
 	return ((lhv.m_rAddress == rhv.m_rAddress) && (lhv.m_uPort == rhv.m_uPort));
 }
+
+
 
 #endif	//	__NET_WORK_CORE_VARIABLE_DEFINIES_H__

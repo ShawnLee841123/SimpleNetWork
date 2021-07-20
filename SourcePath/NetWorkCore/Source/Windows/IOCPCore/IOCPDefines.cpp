@@ -124,4 +124,28 @@ void _WIN_PER_SOCKET_CONTEXT::RemoveIoOperate(LPWIN_OPERATE_IO_CONTEXT pIoContex
 }
 #pragma endregion
 
+IOCPParams::IOCPParams(): pIOCPHandle(nullptr), pFuncExHandle(nullptr), \
+pGetFuncExSockAddrHandle(nullptr), pFuncSockCon(nullptr)
+{
+}
+
+IOCPParams::~IOCPParams()
+{
+	pIOCPHandle = nullptr;
+	pFuncExHandle = nullptr;
+	pGetFuncExSockAddrHandle = nullptr;
+	if (nullptr != pFuncSockCon)
+		delete pFuncSockCon;
+	pFuncSockCon = nullptr;
+}
+
+IOCPParams& IOCPParams::operator=(const IOCPParams& rhv)
+{
+	pIOCPHandle = rhv.pIOCPHandle;
+	pFuncExHandle = rhv.pFuncExHandle;
+	pGetFuncExSockAddrHandle = rhv.pGetFuncExSockAddrHandle;
+	pFuncSockCon = rhv.pFuncSockCon;
+	rAddressKey = rhv.rAddressKey;
+}
+
 #endif
