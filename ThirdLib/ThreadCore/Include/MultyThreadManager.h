@@ -37,6 +37,8 @@ public:
 	void SetConsoleHandle(void* pHandle);
 
 	bool Initial(void* pHandle);
+
+	bool AddNewThread();
 #ifdef _WIN_
 	void ThreadLog(const char* strLog, int nLevel, int nThreadID, ...);
 #else

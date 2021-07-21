@@ -55,6 +55,9 @@ protected:
 	bool GetIOCPFunction(CORE_SOCKET& sock, GUID guidFunc, void* pFuncHandle);
 	
 	bool CreateListenSocket(const char* strAddress, int nPort);
+
+	bool CreateConnectSocket(const char* strAddress, int nPort);
+
 #pragma endregion
 	bool DestroyIOCP();
 	

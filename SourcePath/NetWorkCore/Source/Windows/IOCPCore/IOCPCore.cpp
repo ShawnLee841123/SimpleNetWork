@@ -42,11 +42,10 @@ bool NetWorkIOCPCore::Initial()
 	return bRet;
 }
 
-
 bool NetWorkIOCPCore::InitialSocket()
 {
 	WSADATA wsaData;
-	WSAStartup(MAKEWORK(2, 2), &wsaData);
+	WSAStartup(MAKEWORD(2, 2), &wsaData);
 	return true;
 }
 
@@ -121,7 +120,15 @@ bool NetWorkIOCPCore::ListenSocket(CORE_SOCKET& sock, CORE_SOCKETADDR* addr, int
 
 bool NetWorkIOCPCore::ConnectSocket(CORE_SOCKET& sock, CORE_SOCKETADDR* addr)
 {
-	//todo
+	int nErrorCode = 0;
+	if (INVALID_SOCKET == connect(sock, addr, sizeof(CORE_SOCKETADDR_IN)))
+	{
+		nErrorCode = WSAGetLastError();
+		printf("[ERROR] Can not connect server. [Error Code: %d]", nErrorCode);
+		SAFE_RELEASE_SOCKET(sock);
+		return false;
+	}
+
 	return true;
 }
 
@@ -152,7 +159,6 @@ bool NetWorkIOCPCore::CreateListenSocket(const char* strAddress, int nPort)
 		printf("[ERROR] Initial IOCP handle Failed !!!!!!!");
 		return false;
 	}
-
 
 	//	Initial address
 	CORE_SOCKETADDR_IN sockAddr;
@@ -189,8 +195,50 @@ bool NetWorkIOCPCore::CreateListenSocket(const char* strAddress, int nPort)
 		return false;
 	}
 
+	//todo: Add accept op into iocp
+	return true;
+}
 
+bool NetWorkIOCPCore::CreateConnectSocket(const char* strAddress, int nPort)
+{
+	if (!InitialSocket())
+	{
+		return false;
+	}
 
+	//	Initial IOCP
+	if (!InitialIOCPHandle(m_pListenCon, m_pIOCPHandle))
+	{
+		printf("[ERROR] Initial IOCP handle Failed !!!!!!!");
+		return false;
+	}
+
+	//	Initial address
+	CORE_SOCKETADDR_IN sockAddr;
+	if (nullptr == CreateSocketAddress(strAddress, nPort, sockAddr))
+	{
+		delete m_pListenCon;
+		m_pListenCon = nullptr;
+		return false;
+	}
+
+	//	Connect server
+	if (!ConnectSocket(m_pListenCon->link, (CORE_SOCKETADDR*)(&sockAddr)))
+	{
+		delete m_pListenCon;
+		m_pListenCon = nullptr;
+		return false;
+	}
+
+	//	Get Connect extension function pointer
+	if (!GetIOCPFunction(m_pListenCon->link, WSAID_CONNECTEX, m_pIOCPConnectHandle))
+	{
+		delete m_pListenCon;
+		m_pListenCon = nullptr;
+		return false;
+	}
+
+	//todo: Add recive op into iocp
 	return true;
 }
 
