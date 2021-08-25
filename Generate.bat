@@ -2,7 +2,7 @@
 
 @set SourceDir=SourcePath
 @set VSPath=Build
-@set ProRoot=F:/Works/CPlus/GitWork/SimpleNetWork/
+@set ProRoot=E:/Works/CPlus/GitWork/SimpleNetWork/
 
 @echo ---------------------generate project begin---------------------
 
