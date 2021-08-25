@@ -250,5 +250,7 @@ bool NetWorkIOCPCore::DestroyIOCP()
 	}
 
 	m_pIOCPHandle = nullptr;
+
+	return nullptr == m_pIOCPHandle;
 }
 #pragma endregion

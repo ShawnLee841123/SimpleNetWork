@@ -63,6 +63,7 @@ set(NetWork_IOCP_source_files ${NetWork_IOCP_files_source_file})
 ##-------------------------------------------------------------
 
 if(WIN32)
+	add_definitions(-D_WIN_)
 	set(SOURCES_
 		${NetWork_System_include_files}
 		${NetWork_System_source_files}

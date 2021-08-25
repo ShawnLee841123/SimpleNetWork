@@ -146,6 +146,8 @@ IOCPParams& IOCPParams::operator=(const IOCPParams& rhv)
 	pGetFuncExSockAddrHandle = rhv.pGetFuncExSockAddrHandle;
 	pFuncSockCon = rhv.pFuncSockCon;
 	rAddressKey = rhv.rAddressKey;
+
+	return *this;
 }
 
 #endif
